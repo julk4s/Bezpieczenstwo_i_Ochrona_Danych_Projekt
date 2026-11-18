@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Kierunek na Studia – przeglądaj dane o uczelniach w Polsce i odkrywaj kierunki studiów." />
+  <meta name="theme-color" content="#2563eb" />
+  <title>Kierunek na Studia – uczelnie i kierunki studiów</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+    <symbol id="i-cap" viewBox="0 0 24 24"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/><path d="M22 10v6"/></symbol>
+    <symbol id="i-map" viewBox="0 0 24 24"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2Z"/><path d="M9 4v14M15 6v14"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 4h6a4 4 0 0 1 4 4v12a3 3 0 0 0-3-3H2Z"/><path d="M22 4h-6a4 4 0 0 0-4 4v12a3 3 0 0 1 3-3h7Z"/></symbol>
+    <symbol id="i-trend" viewBox="0 0 24 24"><path d="m22 7-8.5 8.5-5-5L2 17"/><path d="M16 7h6v6"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24"><path d="M3 21h18M5 21V10l7-5 7 5v11"/><path d="M9 21v-6h6v6M9 11h.01M15 11h.01"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0"/><path d="M16 4a4 4 0 0 1 0 8M22 21a7 7 0 0 0-4-6.3"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M8 17v-5M13 17V8M18 17v-8"/></symbol>
+    <symbol id="i-contrast" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 0 0 20Z" fill="currentColor"/></symbol>
+  </svg>
+
+  <a class="skip-link" href="#main">Przejdź do treści</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="Kierunek na Studia – strona główna">
+        <span class="brand-logo"><svg class="icon"><use href="#i-cap"/></svg></span>
+        <span class="brand-name">Kierunek <span class="accent">na Studia</span></span>
+      </a>
+      <nav id="main-nav" class="main-nav" aria-label="Główna nawigacja">
+        <a href="index.html" class="active" data-route="start"><svg class="icon"><use href="#i-cap"/></svg>Start</a>
+        <a href="mapa.html" data-route="mapa"><svg class="icon"><use href="#i-map"/></svg>Mapa uczelni</a>
+        <a href="kierunki.html" data-route="kierunki"><svg class="icon"><use href="#i-book"/></svg>Kierunki</a>
+        <a href="ranking.html" data-route="ranking"><svg class="icon"><use href="#i-trend"/></svg>Ranking</a>
+        <a href="o-projekcie.html" data-route="o-projekcie"><svg class="icon"><use href="#i-info"/></svg>O projekcie</a>
+      </nav>
+      <div class="header-actions">
+        <div class="a11y-tools">
+          <div class="text-size" role="group" aria-label="Rozmiar tekstu">
+            <button type="button" data-size="small" aria-pressed="false" aria-label="Mniejszy tekst" title="Mniejszy tekst">A</button>
+            <button type="button" data-size="normal" aria-pressed="true" aria-label="Domyślny rozmiar tekstu" title="Domyślny rozmiar tekstu">A</button>
+            <button type="button" data-size="large" aria-pressed="false" aria-label="Większy tekst" title="Większy tekst">A</button>
+          </div>
+          <button type="button" class="contrast-btn" id="contrast-toggle" aria-pressed="false" aria-label="Wersja kontrastowa" title="Wersja kontrastowa">
+            <svg class="icon"><use href="#i-contrast"/></svg>
+          </button>
+        </div>
+        <button class="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Otwórz menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="page" id="page-start" data-page="start">
+      <div class="container">
+        <div class="hero">
+          <div class="hero-text">
+            <p class="eyebrow">Dane o szkolnictwie wyższym</p>
+            <h1 class="hero-title">Znajdź swoją uczelnię i kierunek studiów</h1>
+            <p class="lead">Przeglądaj dane o uczelniach w Polsce i odkrywaj kierunki studiów.</p>
+            <form class="hero-search" id="hero-search" role="search">
+              <svg class="icon muted"><use href="#i-search"/></svg>
+              <label for="hero-search-input" class="sr-only">Nazwa uczelni</label>
+              <input id="hero-search-input" type="search" placeholder="Wpisz nazwę uczelni..." autocomplete="off" />
+              <button type="submit" class="btn btn-primary btn-sm">Szukaj</button>
+            </form>
+            <ul class="hero-checks">
+              <li><svg class="icon"><use href="#i-check"/></svg>Rzeczywiste dane</li>
+              <li><svg class="icon"><use href="#i-check"/></svg>Bez reklam</li>
+            </ul>
+          </div>
+          <div class="hero-art" aria-hidden="true">
+            <div class="ring ring-1"></div>
+            <div class="ring ring-2"></div>
+            <div class="hero-tile"><svg class="icon"><use href="#i-cap"/></svg></div>
+            <span class="chip chip-1"><svg class="icon"><use href="#i-building"/></svg>Uczelnie</span>
+            <span class="chip chip-2"><svg class="icon"><use href="#i-book"/></svg>Kierunki</span>
+            <span class="chip chip-3"><svg class="icon"><use href="#i-chart"/></svg>Analiza</span>
+          </div>
+        </div>
+
+        <div class="alert data-alert" role="status" hidden></div>
+
+        <div class="start-grid">
+          <article class="card">
+            <div class="card-head">
+              <div>
+                <p class="eyebrow">Baza uczelni</p>
+                <h2 class="card-title">Uczelnie w Polsce</h2>
+                <p class="card-sub" id="uni-sub">Dane oczekują na plik źródłowy</p>
+              </div>
+            </div>
+            <div class="filters filters-uni">
+              <div class="field">
+                <label for="uni-q">Wyszukaj</label>
+                <div class="input-icon">
+                  <svg class="icon muted"><use href="#i-search"/></svg>
+                  <input id="uni-q" type="search" placeholder="Nazwa uczelni" />
+                </div>
+              </div>
+              <div class="field">
+                <label for="uni-woj">Województwo</label>
+                <select id="uni-woj"><option value="">Wszystkie</option></select>
+              </div>
+              <div class="field">
+                <label for="uni-city">Miasto</label>
+                <input id="uni-city" type="text" list="uni-city-options" placeholder="Wszystkie" />
+                <datalist id="uni-city-options"></datalist>
+              </div>
+              <div class="field">
+                <label for="uni-sort">Sortowanie</label>
+                <select id="uni-sort">
+                  <option value="name-asc">Nazwa: A–Z</option>
+                  <option value="name-desc">Nazwa: Z–A</option>
+                  <option value="students-desc">Absolwenci: malejąco</option>
+                  <option value="students-asc">Absolwenci: rosnąco</option>
+                </select>
+              </div>
+              <div class="field field-btn">
+                <button type="button" class="btn btn-outline" id="uni-clear"><svg class="icon"><use href="#i-x"/></svg>Wyczyść</button>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table class="table">
+                <thead>
+                  <tr><th>Nazwa uczelni</th><th>Miasto</th><th>Województwo</th><th class="num">Liczba absolwentów</th></tr>
+                </thead>
+                <tbody id="uni-tbody"></tbody>
+              </table>
+            </div>
+            <div class="empty" id="uni-empty">
+              <span class="empty-icon"><svg class="icon"><use href="#i-file"/></svg></span>
+              <p class="empty-title">Brak uczelni do wyświetlenia</p>
+              <p class="empty-text">Dodaj źródłowy JSON lub zmień ustawienia filtrów.</p>
+            </div>
+            <div class="pagination" data-pager="uni"></div>
+          </article>
+
+          <aside class="side">
+            <div class="stat-card">
+              <span class="stat-icon"><svg class="icon"><use href="#i-building"/></svg></span>
+              <div><p class="stat-label">Uczelnie w bazie</p><p class="stat-value" id="stat-uni">Brak danych</p></div>
+            </div>
+            <div class="stat-card">
+              <span class="stat-icon"><svg class="icon"><use href="#i-users"/></svg></span>
+              <div><p class="stat-label">Absolwentów</p><p class="stat-value" id="stat-students">Brak danych</p></div>
+            </div>
+            <div class="stat-card">
+              <span class="stat-icon"><svg class="icon"><use href="#i-book"/></svg></span>
+              <div><p class="stat-label">Unikalne kierunki</p><p class="stat-value" id="stat-majors">Brak danych</p></div>
+            </div>
+            <div class="card top3-card">
+              <div class="card-head">
+                <div>
+                  <p class="eyebrow">Ranking</p>
+                  <h2 class="card-title">TOP 3 kierunki</h2>
+                </div>
+                <svg class="icon accent-icon"><use href="#i-trend"/></svg>
+              </div>
+              <ol class="rank-list" id="top3-list"></ol>
+              <div class="empty" id="top3-empty">
+                <span class="empty-icon"><svg class="icon"><use href="#i-file"/></svg></span>
+                <p class="empty-title">Brak rankingu</p>
+                <p class="empty-text">Ranking zostanie obliczony z rekordów kierunków.</p>
+              </div>
+              <a href="ranking.html" class="btn btn-primary btn-block"><svg class="icon"><use href="#i-chart"/></svg>Zobacz pełną analizę</a>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="brand-logo dark"><svg class="icon"><use href="#i-cap"/></svg></span>
+        <div>
+          <p class="brand-name light">Kierunek <span class="accent">na Studia</span></p>
+          <p class="footer-text">Dane, które pomagają wybrać właściwy kierunek.</p>
+        </div>
+      </div>
+      <nav aria-label="Nawigacja w stopce">
+        <h2 class="footer-heading">Nawigacja</h2>
+        <ul>
+          <li><a href="index.html">Start</a></li>
+          <li><a href="mapa.html">Mapa uczelni</a></li>
+          <li><a href="kierunki.html">Kierunki</a></li>
+          <li><a href="ranking.html">Ranking</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h2 class="footer-heading">Informacje</h2>
+        <ul>
+          <li><a href="o-projekcie.html">O projekcie</a></li>
+          <li><span>Dane statystyczne</span></li>
+          <li><span>Projekt akademicki</span></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <template id="alert-template">
+    <svg class="icon"><use href="#i-alert"/></svg>
+    <div>
+      <p class="alert-title">Plik danych nie jest jeszcze dostępny</p>
+      <p class="alert-text">Nie udało się wczytać pliku <code>dane_studenci.json</code>. Umieść go obok strony i uruchom ją przez lokalny serwer.</p>
+    </div>
+  </template>
+
+  <script src="scrypt.js?v=2" defer></script>
+</body>
+</html>

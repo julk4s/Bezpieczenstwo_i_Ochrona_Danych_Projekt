@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Rankingi uczelni i kierunków studiów oraz lokalny formularz dodawania opinii." />
+  <meta name="theme-color" content="#2563eb" />
+  <title>Rankingi – Kierunek na Studia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+    <symbol id="i-cap" viewBox="0 0 24 24"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/><path d="M22 10v6"/></symbol>
+    <symbol id="i-map" viewBox="0 0 24 24"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2Z"/><path d="M9 4v14M15 6v14"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 4h6a4 4 0 0 1 4 4v12a3 3 0 0 0-3-3H2Z"/><path d="M22 4h-6a4 4 0 0 0-4 4v12a3 3 0 0 1 3-3h7Z"/></symbol>
+    <symbol id="i-trend" viewBox="0 0 24 24"><path d="m22 7-8.5 8.5-5-5L2 17"/><path d="M16 7h6v6"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24"><path d="M3 21h18M5 21V10l7-5 7 5v11"/><path d="M9 21v-6h6v6M9 11h.01M15 11h.01"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1Z"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></symbol>
+    <symbol id="i-contrast" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 0 0 20Z" fill="currentColor"/></symbol>
+  </svg>
+
+  <a class="skip-link" href="#main">Przejdź do treści</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="Kierunek na Studia – strona główna">
+        <span class="brand-logo"><svg class="icon"><use href="#i-cap"/></svg></span>
+        <span class="brand-name">Kierunek <span class="accent">na Studia</span></span>
+      </a>
+      <nav id="main-nav" class="main-nav" aria-label="Główna nawigacja">
+        <a href="index.html" data-route="start"><svg class="icon"><use href="#i-cap"/></svg>Start</a>
+        <a href="mapa.html" data-route="mapa"><svg class="icon"><use href="#i-map"/></svg>Mapa uczelni</a>
+        <a href="kierunki.html" data-route="kierunki"><svg class="icon"><use href="#i-book"/></svg>Kierunki</a>
+        <a href="ranking.html" class="active" data-route="ranking"><svg class="icon"><use href="#i-trend"/></svg>Ranking</a>
+        <a href="o-projekcie.html" data-route="o-projekcie"><svg class="icon"><use href="#i-info"/></svg>O projekcie</a>
+      </nav>
+      <div class="header-actions">
+        <div class="a11y-tools">
+          <div class="text-size" role="group" aria-label="Rozmiar tekstu">
+            <button type="button" data-size="small" aria-pressed="false" aria-label="Mniejszy tekst" title="Mniejszy tekst">A</button>
+            <button type="button" data-size="normal" aria-pressed="true" aria-label="Domyślny rozmiar tekstu" title="Domyślny rozmiar tekstu">A</button>
+            <button type="button" data-size="large" aria-pressed="false" aria-label="Większy tekst" title="Większy tekst">A</button>
+          </div>
+          <button type="button" class="contrast-btn" id="contrast-toggle" aria-pressed="false" aria-label="Wersja kontrastowa" title="Wersja kontrastowa">
+            <svg class="icon"><use href="#i-contrast"/></svg>
+          </button>
+        </div>
+        <button class="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Otwórz menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="page" id="page-ranking" data-page="ranking">
+      <div class="container">
+        <header class="page-head">
+          <p class="eyebrow">Zestawienia</p>
+          <h1 class="page-title">Rankingi uczelni i kierunków</h1>
+          <p class="lead">Porównaj najpopularniejsze kierunki, największe uczelnie oraz oceny dodane lokalnie przez użytkowników.</p>
+        </header>
+
+        <div class="alert data-alert" role="status" hidden></div>
+
+        <article class="card card-flush">
+          <div class="tabs" role="tablist" aria-label="Rodzaj rankingu">
+            <button role="tab" aria-selected="true" data-rank-tab="majors"><svg class="icon"><use href="#i-book"/></svg>Najpopularniejsze kierunki</button>
+            <button role="tab" aria-selected="false" data-rank-tab="unis"><svg class="icon"><use href="#i-building"/></svg>Największe uczelnie</button>
+            <button role="tab" aria-selected="false" data-rank-tab="ratings"><svg class="icon"><use href="#i-star"/></svg>Oceny użytkowników</button>
+          </div>
+          <div class="card-body">
+            <div class="card-head">
+              <div>
+                <p class="eyebrow" id="rank-eyebrow">Top 5</p>
+                <h2 class="card-title" id="rank-title">Kierunki według liczby absolwentów</h2>
+              </div>
+            </div>
+            <ol class="rank-list rank-list-lg" id="rank-list"></ol>
+            <div class="empty" id="rank-empty">
+              <span class="empty-icon"><svg class="icon"><use href="#i-file"/></svg></span>
+              <p class="empty-title" id="rank-empty-title">Brak danych do utworzenia rankingu</p>
+              <p class="empty-text" id="rank-empty-text">Ranking zostanie obliczony automatycznie po dodaniu JSON-u.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head">
+            <div>
+              <p class="eyebrow">Twoja opinia</p>
+              <h2 class="card-title">Oceń uczelnię i kierunek</h2>
+              <p class="card-sub">Oceny są zapisywane wyłącznie lokalnie w tej przeglądarce.</p>
+            </div>
+            <svg class="icon star-outline"><use href="#i-star"/></svg>
+          </div>
+
+          <form class="rating-form" id="rating-form" novalidate>
+            <div class="form-grid">
+              <div class="field">
+                <label for="r-name">Imię i Nazwisko</label>
+                <input id="r-name" name="name" type="text" placeholder="Jan Nowak" required minlength="2" />
+                <p class="error" data-error-for="r-name"></p>
+              </div>
+              <div class="field">
+                <label for="r-email">E-mail *</label>
+                <input id="r-email" name="email" type="email" placeholder="nazwa@domena.pl" required />
+                <p class="error" data-error-for="r-email"></p>
+              </div>
+              <div class="field">
+                <label for="r-city">Miasto *</label>
+                <input id="r-city" name="city" type="text" list="r-city-options" placeholder="Wpisz lub wybierz miasto" required />
+                <datalist id="r-city-options"></datalist>
+                <p class="error" data-error-for="r-city"></p>
+              </div>
+              <div class="field">
+                <label for="r-uni">Uczelnia *</label>
+                <select id="r-uni" name="uni" required><option value="">Wybierz uczelnię</option></select>
+                <p class="error" data-error-for="r-uni"></p>
+              </div>
+              <div class="field">
+                <label for="r-major">Kierunek *</label>
+                <select id="r-major" name="major" required disabled><option value="">Najpierw wybierz uczelnię</option></select>
+                <p class="error" data-error-for="r-major"></p>
+              </div>
+              <div class="field">
+                <label for="r-deg">Stopień studiów *</label>
+                <select id="r-deg" name="degree" required disabled><option value="">Najpierw wybierz kierunek</option></select>
+                <p class="error" data-error-for="r-deg"></p>
+              </div>
+            </div>
+
+            <fieldset class="field">
+              <legend>Twoja ocena *</legend>
+              <div class="stars" id="stars" role="radiogroup" aria-label="Ocena w skali 1–5">
+                <button type="button" role="radio" aria-checked="false" aria-label="1 gwiazdka" data-v="1"><svg class="icon"><use href="#i-star"/></svg></button>
+                <button type="button" role="radio" aria-checked="false" aria-label="2 gwiazdki" data-v="2"><svg class="icon"><use href="#i-star"/></svg></button>
+                <button type="button" role="radio" aria-checked="false" aria-label="3 gwiazdki" data-v="3"><svg class="icon"><use href="#i-star"/></svg></button>
+                <button type="button" role="radio" aria-checked="false" aria-label="4 gwiazdki" data-v="4"><svg class="icon"><use href="#i-star"/></svg></button>
+                <button type="button" role="radio" aria-checked="false" aria-label="5 gwiazdek" data-v="5"><svg class="icon"><use href="#i-star"/></svg></button>
+              </div>
+              <p class="stars-current" id="stars-value" aria-live="polite">Nie wybrano oceny</p>
+              <p class="error" data-error-for="stars"></p>
+            </fieldset>
+
+            <fieldset class="field">
+              <legend>Status użytkownika *</legend>
+              <div class="radio-group">
+                <label class="radio-pill"><input type="radio" name="status" value="Student" /> Student</label>
+                <label class="radio-pill"><input type="radio" name="status" value="Absolwent" /> Absolwent</label>
+              </div>
+              <p class="error" data-error-for="status"></p>
+            </fieldset>
+
+            <div class="field">
+              <div class="label-row">
+                <label for="r-opinion">Opinia *</label>
+                <span class="counter" id="r-counter">0/500</span>
+              </div>
+              <textarea id="r-opinion" name="opinion" rows="4" maxlength="500" placeholder="Opisz swoje doświadczenia (minimum 20 znaków)..." required></textarea>
+              <p class="error" data-error-for="r-opinion"></p>
+            </div>
+
+            <label class="checkbox">
+              <input type="checkbox" id="r-terms" />
+              <span>Akceptuję zasady publikowania opinii i potwierdzam, że ocena jest moim własnym doświadczeniem.</span><br>
+            </label>
+            <p class="error" data-error-for="r-terms"></p>
+
+            <div class="form-footer">
+              <button type="submit" class="btn btn-primary"><svg class="icon"><use href="#i-star"/></svg>Dodaj ocenę</button>
+              <br>
+              <span class="hint">Wymagane pola oznaczono *</span>
+            </div>
+            <p class="success" id="r-success" role="status" hidden>Dziękujemy! Twoja ocena została zapisana lokalnie.</p>
+          </form>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="brand-logo dark"><svg class="icon"><use href="#i-cap"/></svg></span>
+        <div>
+          <p class="brand-name light">Kierunek <span class="accent">na Studia</span></p>
+          <p class="footer-text">Dane, które pomagają wybrać właściwy kierunek.</p>
+        </div>
+      </div>
+      <nav aria-label="Nawigacja w stopce">
+        <h2 class="footer-heading">Nawigacja</h2>
+        <ul>
+          <li><a href="index.html">Start</a></li>
+          <li><a href="mapa.html">Mapa uczelni</a></li>
+          <li><a href="kierunki.html">Kierunki</a></li>
+          <li><a href="ranking.html">Ranking</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h2 class="footer-heading">Informacje</h2>
+        <ul>
+          <li><a href="o-projekcie.html">O projekcie</a></li>
+          <li><span>Dane statystyczne</span></li>
+          <li><span>Projekt akademicki</span></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <template id="alert-template">
+    <svg class="icon"><use href="#i-alert"/></svg>
+    <div>
+      <p class="alert-title">Plik danych nie jest jeszcze dostępny</p>
+      <p class="alert-text">Nie udało się wczytać pliku <code>dane_studenci.json</code>. Umieść go obok strony i uruchom ją przez lokalny serwer.</p>
+    </div>
+  </template>
+
+  <script src="scrypt.js" defer></script>
+</body>
+</html>

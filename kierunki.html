@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Wyszukiwarka kierunków studiów w Polsce – filtruj według miast, stopni oraz uczelni." />
+  <meta name="theme-color" content="#2563eb" />
+  <title>Kierunki studiów – Kierunek na Studia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+    <symbol id="i-cap" viewBox="0 0 24 24"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/><path d="M22 10v6"/></symbol>
+    <symbol id="i-map" viewBox="0 0 24 24"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2Z"/><path d="M9 4v14M15 6v14"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 4h6a4 4 0 0 1 4 4v12a3 3 0 0 0-3-3H2Z"/><path d="M22 4h-6a4 4 0 0 0-4 4v12a3 3 0 0 1 3-3h7Z"/></symbol>
+    <symbol id="i-trend" viewBox="0 0 24 24"><path d="m22 7-8.5 8.5-5-5L2 17"/><path d="M16 7h6v6"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></symbol>
+    <symbol id="i-contrast" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 0 0 20Z" fill="currentColor"/></symbol>
+  </svg>
+
+  <a class="skip-link" href="#main">Przejdź do treści</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="Kierunek na Studia – strona główna">
+        <span class="brand-logo"><svg class="icon"><use href="#i-cap"/></svg></span>
+        <span class="brand-name">Kierunek <span class="accent">na Studia</span></span>
+      </a>
+      <nav id="main-nav" class="main-nav" aria-label="Główna nawigacja">
+        <a href="index.html" data-route="start"><svg class="icon"><use href="#i-cap"/></svg>Start</a>
+        <a href="mapa.html" data-route="mapa"><svg class="icon"><use href="#i-map"/></svg>Mapa uczelni</a>
+        <a href="kierunki.html" class="active" data-route="kierunki"><svg class="icon"><use href="#i-book"/></svg>Kierunki</a>
+        <a href="ranking.html" data-route="ranking"><svg class="icon"><use href="#i-trend"/></svg>Ranking</a>
+        <a href="o-projekcie.html" data-route="o-projekcie"><svg class="icon"><use href="#i-info"/></svg>O projekcie</a>
+      </nav>
+      <div class="header-actions">
+        <div class="a11y-tools">
+          <div class="text-size" role="group" aria-label="Rozmiar tekstu">
+            <button type="button" data-size="small" aria-pressed="false" aria-label="Mniejszy tekst" title="Mniejszy tekst">A</button>
+            <button type="button" data-size="normal" aria-pressed="true" aria-label="Domyślny rozmiar tekstu" title="Domyślny rozmiar tekstu">A</button>
+            <button type="button" data-size="large" aria-pressed="false" aria-label="Większy tekst" title="Większy tekst">A</button>
+          </div>
+          <button type="button" class="contrast-btn" id="contrast-toggle" aria-pressed="false" aria-label="Wersja kontrastowa" title="Wersja kontrastowa">
+            <svg class="icon"><use href="#i-contrast"/></svg>
+          </button>
+        </div>
+        <button class="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Otwórz menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="page" id="page-kierunki" data-page="kierunki">
+      <div class="container">
+        <header class="page-head">
+          <p class="eyebrow">Znajdź swoją ścieżkę</p>
+          <h1 class="page-title">Wyszukiwarka kierunków studiów</h1>
+          <p class="lead">Sprawdź, na jakich uczelniach i w jakich miastach można studiować wybrany kierunek.</p>
+        </header>
+
+        <div class="alert data-alert" role="status" hidden></div>
+
+        <article class="card">
+          <div class="card-head">
+            <div>
+              <p class="eyebrow">Filtry wyszukiwania</p>
+              <h2 class="card-title">Dopasuj wyniki</h2>
+            </div>
+            <svg class="icon muted"><use href="#i-sliders"/></svg>
+          </div>
+          <form class="filters filters-major" id="major-form">
+            <div class="field">
+              <label for="input-kierunek">Nazwa kierunku</label>
+              <div class="input-icon">
+                <svg class="icon muted"><use href="#i-search"/></svg>
+                <input id="input-kierunek" type="text" placeholder="np. Informatyka" />
+              </div>
+            </div>
+            <div class="field">
+              <label for="maj-city">Miasto</label>
+              <input type="text" id="maj-city" list="list-miasta" placeholder="np. Rzeszów" />
+              <datalist id="list-miasta"></datalist>
+            </div>
+            <div class="field">
+              <label for="maj-woj">Województwo</label>
+              <select id="maj-woj"><option value="">Wszystkie</option></select>
+            </div>
+            <div class="field">
+              <label for="maj-uni">Uczelnia</label>
+              <input type="text" id="maj-uni" list="list-uczelnie" placeholder="np. Politechnika..." />
+              <datalist id="list-uczelnie"></datalist>
+            </div>
+            <div class="field">
+              <label for="maj-deg">Stopień</label>
+              <select id="maj-deg">
+                <option value="">Wszystkie</option>
+                <option value="I stopnia">I stopnia</option>
+                <option value="II stopnia">II stopnia</option>
+                <option value="Jednolite magisterskie">Jednolite magisterskie</option>
+              </select></div>
+            <div class="filter-actions">
+              <button type="submit" class="btn btn-primary">
+                <svg class="icon"><use href="#i-search"/></svg>Szukaj
+              </button>
+              <button type="button" class="btn btn-outline" id="maj-clear">
+                <svg class="icon"><use href="#i-x"/></svg>Wyczyść
+              </button>
+            </div>
+          </form>
+        </article>
+
+        <article class="card">
+          <div class="card-head">
+            <div>
+              <p class="eyebrow">Wyniki</p>
+              <h2 class="card-title">Znalezione kierunki</h2>
+              <p class="card-sub" id="maj-count">Brak wczytanych rekordów</p>
+            </div>
+            <div class="field sort-field">
+              <label for="maj-sort">Sortuj</label>
+              <select id="maj-sort">
+                <option value="students-desc">Absolwenci: malejąco</option>
+                <option value="students-asc">Absolwenci: rosnąco</option>
+                <option value="name-asc">Kierunek: A–Z</option>
+                <option value="city-asc">Miasto: A–Z</option>
+              </select>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="table">
+              <thead><tr><th>Miasto</th><th>Uczelnia</th><th>Kierunek</th><th>Stopień</th><th class="num">Absolwenci</th></tr></thead>
+              <tbody id="maj-tbody"></tbody>
+            </table>
+          </div>
+          <div class="empty" id="maj-empty">
+            <span class="empty-icon"><svg class="icon"><use href="#i-file"/></svg></span>
+            <p class="empty-title">Brak pasujących kierunków</p>
+            <p class="empty-text">Zmień filtry lub dodaj źródłowy plik danych.</p>
+          </div>
+          <div class="pagination" data-pager="maj"></div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="brand-logo dark"><svg class="icon"><use href="#i-cap"/></svg></span>
+        <div>
+          <p class="brand-name light">Kierunek <span class="accent">na Studia</span></p>
+          <p class="footer-text">Dane, które pomagają wybrać właściwy kierunek.</p>
+        </div>
+      </div>
+      <nav aria-label="Nawigacja w stopce">
+        <h2 class="footer-heading">Nawigacja</h2>
+        <ul>
+          <li><a href="index.html">Start</a></li>
+          <li><a href="mapa.html">Mapa uczelni</a></li>
+          <li><a href="kierunki.html">Kierunki</a></li>
+          <li><a href="ranking.html">Ranking</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h2 class="footer-heading">Informacje</h2>
+        <ul>
+          <li><a href="o-projekcie.html">O projekcie</a></li>
+          <li><span>Dane statystyczne</span></li>
+          <li><span>Projekt akademicki</span></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <template id="alert-template">
+    <svg class="icon"><use href="#i-alert"/></svg>
+    <div>
+      <p class="alert-title">Plik danych nie jest jeszcze dostępny</p>
+      <p class="alert-text">Nie udało się wczytać pliku <code>dane_studenci.json</code>. Umieść go obok strony i uruchom ją przez lokalny serwer.</p>
+    </div>
+  </template>
+
+  <script src="scrypt.js" defer></script>
+</body>
+</html>
