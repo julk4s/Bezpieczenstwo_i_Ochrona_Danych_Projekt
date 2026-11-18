@@ -812,11 +812,176 @@ function initMapModule() {
   else mapObject.addEventListener('load', attachMapEvents, { once: true });
 }
 
+/* ---------- Logowanie / rejestracja (wersja prosta, bez backendu) ----------
+ * Konta zapisywane są tylko w tej przeglądarce (localStorage).
+ * Wersja tymczasowa – w kolejnym etapie zastąpi ją backend.
+ */
+const USERS_KEY = "kns_users_v1";
+const SESSION_KEY = "kns_session_v1";
+
+const readJson = (key, fallback) => {
+  try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch { return fallback; }
+};
+const getUsers = () => readJson(USERS_KEY, []);
+const getLoggedEmail = () => readJson(SESSION_KEY, null);
+
+function setLoggedEmail(email) {
+  try {
+    if (email) localStorage.setItem(SESSION_KEY, JSON.stringify(email));
+    else localStorage.removeItem(SESSION_KEY);
+  } catch {}
+}
+
+const sameText = (a, b) => String(a || "").toLowerCase() === String(b || "").toLowerCase();
+
+// Nazwa wyświetlana zalogowanego użytkownika: "Imię Nazwisko (nazwa)" lub sam e-mail
+function loggedUserLabel() {
+  const email = getLoggedEmail();
+  if (!email) return "";
+  const user = getUsers().find((u) => sameText(u.email, email));
+  if (!user || !user.username) return email;
+  const fullName = [user.firstName, user.lastName].filter(Boolean).join(" ");
+  return fullName ? `${fullName} (${user.username})` : user.username;
+}
+
+function updateAuthHeader() {
+  const email = getLoggedEmail();
+  $$("[data-auth-link]").forEach((link) => {
+    const label = $(".auth-link-label", link);
+    if (label) label.textContent = email ? "Wyloguj" : "Zaloguj się";
+    link.title = email ? `Zalogowano jako ${loggedUserLabel()}` : "Zaloguj się";
+  });
+}
+
+function showAuthView(view) {
+  const email = getLoggedEmail();
+  if ($("#auth-logged")) $("#auth-logged").hidden = !email;
+  if ($("#panel-login")) $("#panel-login").hidden = Boolean(email) || view === "rejestracja";
+  if ($("#panel-register")) $("#panel-register").hidden = Boolean(email) || view !== "rejestracja";
+  if (email && $("#auth-logged-text")) $("#auth-logged-text").textContent = `Zalogowano jako ${loggedUserLabel()}`;
+}
+
+function logout() {
+  setLoggedEmail(null);
+  updateAuthHeader();
+  showAuthView("logowanie");
+}
+
+function showMessage(id, text, success = false) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.textContent = text;
+  el.classList.toggle("success", success);
+  el.hidden = !text;
+}
+
+function resetAuthForm(form) {
+  form.reset();
+  $$(".pw-toggle[aria-pressed='true']", form).forEach((btn) => btn.click());
+}
+
+function initAuth() {
+  updateAuthHeader();
+  $$("[data-auth-link]").forEach((link) =>
+    link.addEventListener("click", (e) => {
+      if (getLoggedEmail()) { e.preventDefault(); logout(); }
+    })
+  );
+
+  const loginForm = $("#login-form"), registerForm = $("#register-form");
+  if (!loginForm || !registerForm) return;
+
+  showAuthView(location.hash === "#rejestracja" ? "rejestracja" : "logowanie");
+  $$("[data-auth-go]").forEach((btn) =>
+    btn.addEventListener("click", () => {
+      showMessage("login-message", "");
+      showMessage("register-message", "");
+      showAuthView(btn.dataset.authGo);
+    })
+  );
+  $("#auth-logout")?.addEventListener("click", logout);
+
+  // Pokaż / ukryj hasło
+  $$(".pw-toggle").forEach((btn) => {
+    const input = document.getElementById(btn.getAttribute("aria-controls"));
+    if (!input) return;
+    btn.addEventListener("click", () => {
+      const show = input.type === "password";
+      input.type = show ? "text" : "password";
+      btn.setAttribute("aria-pressed", String(show));
+      btn.setAttribute("aria-label", show ? "Ukryj hasło" : "Pokaż hasło");
+      btn.title = btn.getAttribute("aria-label");
+    });
+  });
+
+  // Usuwanie komunikatu o błędzie podczas pisania
+  [loginForm, registerForm].forEach((form) =>
+    form.addEventListener("input", (e) => { if (e.target.id) setError(e.target.id, ""); })
+  );
+
+  loginForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    showMessage("login-message", "");
+    const login = $("#login-user").value.trim();
+    const password = $("#login-password").value;
+    setError("login-user", login ? "" : "Podaj e-mail lub nazwę użytkownika.");
+    setError("login-password", password ? "" : "Podaj hasło.");
+    if (!login || !password) return;
+
+    // Logowanie e-mailem albo nazwą użytkownika
+    const user = getUsers().find((u) => (sameText(u.email, login) || sameText(u.username, login)) && u.password === password);
+    if (!user) {
+      showMessage("login-message", "Nieprawidłowy login lub hasło.");
+      return;
+    }
+    setLoggedEmail(user.email);
+    resetAuthForm(loginForm);
+    updateAuthHeader();
+    showAuthView();
+  });
+
+  registerForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    showMessage("register-message", "");
+    const firstName = $("#reg-first").value.trim();
+    const lastName = $("#reg-last").value.trim();
+    const username = $("#reg-username").value.trim();
+    const email = $("#reg-email").value.trim();
+    const password = $("#reg-password").value;
+    const password2 = $("#reg-password2").value;
+    const users = getUsers();
+    const errors = {
+      "reg-first": !firstName ? "Podaj imię." : "",
+      "reg-last": !lastName ? "Podaj nazwisko." : "",
+      "reg-username": !username ? "Podaj nazwę użytkownika."
+        : /\s/.test(username) ? "Nazwa użytkownika nie może zawierać spacji."
+        : username.includes("@") ? "Nazwa użytkownika nie może zawierać znaku @."
+        : users.some((u) => sameText(u.username, username)) ? "Ta nazwa użytkownika jest już zajęta." : "",
+      "reg-email": !email ? "Podaj adres e-mail."
+        : !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? "Podaj poprawny adres e-mail."
+        : users.some((u) => sameText(u.email, email)) ? "Konto z tym adresem e-mail już istnieje." : "",
+      "reg-password": !password ? "Podaj hasło." : "",
+      "reg-password2": !password2 ? "Powtórz hasło." : password2 !== password ? "Hasła nie są takie same." : "",
+    };
+    Object.entries(errors).forEach(([id, msg]) => setError(id, msg));
+    if (Object.values(errors).some(Boolean)) return;
+
+    users.push({ firstName, lastName, username, email, password });
+    try { localStorage.setItem(USERS_KEY, JSON.stringify(users)); } catch {}
+
+    resetAuthForm(registerForm);
+    showAuthView("logowanie");
+    $("#login-user").value = username;
+    showMessage("login-message", "Konto zostało utworzone. Możesz się zalogować.", true);
+  });
+}
+
 // Inicjalizacja DALEJ po pobraniu danych
 initA11y();
 
 document.addEventListener("DOMContentLoaded", async () => {
   initNav();
+  initAuth();
   await loadData();
   renderAlerts();
   renderStats();
@@ -826,4 +991,4 @@ document.addEventListener("DOMContentLoaded", async () => {
   initRanking();
   initRatingForm();
   initMapModule();
-});
+});
